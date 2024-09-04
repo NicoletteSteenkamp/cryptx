@@ -1,14 +1,19 @@
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-
 import "./App.css";
+
 function App() {
 	return (
 		<BrowserRouter>
-			<div>
+			<div className="App">
 				<Header />
-				<Sidebar />
+				<div className="MainContent">
+					<Sidebar />
+					<div className="ContentArea">
+						
+					</div>
+				</div>
 			</div>
 		</BrowserRouter>
 	);
