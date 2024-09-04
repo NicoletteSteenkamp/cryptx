@@ -1,3 +1,8 @@
 .sidebar {
   background-color: #F3F3F3;
+  
+}
+
+li {
+  display: flex;
 }
