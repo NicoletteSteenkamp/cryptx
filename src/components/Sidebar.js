@@ -14,7 +14,7 @@ export default function Sidebar() {
         <li><h3>Mail Box</h3></li>
         <li><h3>Settings</h3></li>
         <li><h3>Logout</h3></li>
-       </ul>
+      </ul>
       </div>
     </div>
   )
