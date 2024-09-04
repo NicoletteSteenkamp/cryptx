@@ -4,16 +4,17 @@ import { MdDashboard } from "react-icons/md";
 import { BiWallet } from "react-icons/bi";
 import { MdClose, MdMenu } from "react-icons/md";
 import { FiPieChart, FiMail, FiSettings, FiLogOut } from "react-icons/fi";
+import logo from "./images/Logo.png";
 
 export default function Sidebar() {
 	return (
 		<div className="sidebar">
 			<div className="logo">
-				<img src="" alt="" />
+				<img src={logo} alt="" />
 			</div>
 			<div className="sidebar-menu">
 				<ul>
-					<li>
+					<li className=" dashboard">
 						{" "}<MdDashboard />
 						<h3>Overview</h3>
 					</li>
