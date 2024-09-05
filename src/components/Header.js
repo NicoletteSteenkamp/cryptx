@@ -1,25 +1,15 @@
 import React from "react";
-import "./Header.css";
-import "font-awesome/css/font-awesome.min.css";
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
 
-const Header = () => {
-	return (
-		<div className="Header">
-			
-			<div className="navbar">
-				
-				<div className="search">
-					<input type="search" placeholder="Search type of keywords" />
-					<i className="fa fa-search search-icon" aria-hidden="true" />
-				</div>
-				<div className="icons">
-					<i className="fa fa-bell-slash" aria-hidden="true" />
-					question mark
-				</div>
-				<div className="profile">icon user-name name</div>
-			</div>
-		</div>
-	);
-};
-
-export default Header;
+export default function App() {
+  return (
+    <header>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+    </header>
+  )
+}

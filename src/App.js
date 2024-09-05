@@ -1,22 +1,21 @@
 import { BrowserRouter } from "react-router-dom";
-import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 import "./App.css";
 
-function App() {
+
+export default function App() {
 	return (
 		<BrowserRouter>
-			<div className="App">
-				<Header />
-				<div className="MainContent">
-					<Sidebar />
-					<div className="ContentArea">
-						
-					</div>
-				</div>
+			<div>
+        <Header/>
+				
+				<Sidebar />
+        <Register/>
+        <Login/>
 			</div>
 		</BrowserRouter>
 	);
 }
-
-export default App;
