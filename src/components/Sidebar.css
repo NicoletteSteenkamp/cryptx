@@ -20,7 +20,7 @@
 
 .sidebar-menu ul {
   list-style-type: none;
- 
+  color: rgba(158, 158, 158, 1);
   padding: 10px;
 
 }
@@ -31,13 +31,15 @@ li {
   margin-bottom: 20px; /* Add space between list items */
   padding: 10px; 
   cursor: pointer;
+  
+
   /* Add padding inside each list item */
 }
 
 li h3 {
   margin-left: 10px; /* Adds space between the icon and the text */
   font-size: 16px; /* Set font size */
-  color: #555; /* Text color */
+  color: rgba(158, 158, 158, 1);/* Text color */
   font-weight: 500; /* Text weight */
 }
 
