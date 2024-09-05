@@ -7,7 +7,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-reac
 
 export default function App() {
   return (
-    <header>
+    <div>
 		<Header/>
     <Sidebar/>
       <SignedOut>
@@ -16,6 +16,6 @@ export default function App() {
       <SignedIn>
         <UserButton />
       </SignedIn>
-    </header>
+    </div>
   )
 }

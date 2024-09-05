@@ -6,6 +6,7 @@ import { MdClose, MdMenu } from "react-icons/md";
 import { FiPieChart, FiMail, FiSettings, FiLogOut } from "react-icons/fi";
 import logo from "./images/Logo.jpg";
 
+
 export default function Sidebar() {
 	return (
 		<div className="sidebar">
