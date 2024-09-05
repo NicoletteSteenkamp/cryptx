@@ -5,9 +5,7 @@ import App from './App';
 import './index.css'
 import { ClerkProvider } from '@clerk/clerk-react'
 
-const PUBLISHABLE_KEY  =  import.meta.env.REACT_APP_CLERK_PUBLISHABLE_KEY
-console.log('Publishable Key:', process.env.REACT_APP_CLERK_PUBLISHABLE_KEY);
-
+const PUBLISHABLE_KEY  =  'pk_test_ZmFuY3ktc2t1bmstMTEuY2xlcmsuYWNjb3VudHMuZGV2JA'
 
 
 
