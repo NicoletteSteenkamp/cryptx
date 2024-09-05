@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+
 
 export default function Sidebar() {
   return (
     <div className='sidebar'>
       <div className="logo">
-        <img src='' alt='' />
+        <img src='./Logo.jpg' alt='logo' />
       </div>
       <div className="sidebar-menu">
        <ul>
@@ -14,7 +15,8 @@ export default function Sidebar() {
         <li><h3>Mail Box</h3></li>
         <li><h3>Settings</h3></li>
         <li><h3>Logout</h3></li>
-      </ul>
+        </ul>
+       
       </div>
     </div>
   )
