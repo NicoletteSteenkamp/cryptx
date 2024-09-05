@@ -2,7 +2,6 @@ import React from "react";
 import "./Sidebar.css";
 import { MdDashboard } from "react-icons/md";
 import { BiWallet } from "react-icons/bi";
-
 import { MdClose, MdMenu } from "react-icons/md";
 import { FiPieChart, FiMail, FiSettings, FiLogOut } from "react-icons/fi";
 import logo from "./images/Logo.jpg";
