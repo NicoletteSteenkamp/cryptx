@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, Navigate, useNavigate, useLocation,useEffect } from "react-router-dom";
+import useEffect from "react";
+import { BrowserRouter, Route, Routes, Navigate, useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import "./App.css";
-import Login from "./pages/Login";
+import Login from "./Pages/SignIn";
 import Signup from "./Pages/Register"; 
 import { SignedIn, useAuth } from "@clerk/clerk-react"; 
 import "./App.css";
@@ -15,8 +16,6 @@ export default function App() {
   const navigate = useNavigate(); 
   const location = useLocation(); 
 
-
-  // eslint-disable-next-line no-undef
   useEffect(() => {
 
     if (isSignedIn) {
