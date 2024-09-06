@@ -3,6 +3,7 @@ import styled from "styled-components";
 // import "./Header.css"
 import "font-awesome/css/font-awesome.min.css";
 import profile from "./images/profileicon.jpeg";
+import { useUser } from '@clerk/clerk-react'; 
 
 const Container = styled.div`
   display: flex;
@@ -93,36 +94,42 @@ const Icon = styled.div`
 `;
 
 const Header = () => {
-  return (
-    <Container>
-      {/* right side content */}
-      <Search>
-        <input type="text" placeholder="Search type of keywords" />
-        <i className="fa fa-search search-icon" aria-hidden="true" />
-      </Search>
-
-      <LeftDiv>
-        <div className="icons">
-          {/* icons noti and query */}
-          {/* <i className="fa fa-bell-slash fa-icon" aria-hidden="true" /> */}
-          <i className="fa-regular fa-bell fa-icon" aria-hidden="true" />
-          <i class="fa-regular fa-circle-question" aria-hidden="true" />
-        </div>
-        <ProfileDiv>
-          <Image src={profile} alt="profile img" />
-          <div className="names">
-            <h3>User</h3>
-            <h4>@username</h4>
+    const { user } = useUser(); // Get current user from Clerk
+  
+    return (
+      <Container>
+        {/* Right side content */}
+        <Search>
+          <input type="text" placeholder="Search type of keywords" />
+          <i className="fa fa-search search-icon" aria-hidden="true" />
+        </Search>
+  
+        <LeftDiv>
+          <div className="icons">
+            {/* Icons for notifications and queries */}
+            <i className="fa-regular fa-bell fa-icon" aria-hidden="true" />
+            <i className="fa-regular fa-circle-question" aria-hidden="true" />
           </div>
-          {/* icon point down */}
-          <Icon>
-            <i class="fa-solid fa-chevron-down" />
-          </Icon>
-        </ProfileDiv>
-      </LeftDiv>
-    </Container>
-  );
-
+          <ProfileDiv>
+            <Image 
+              src={user?.profileImageUrl || profile} 
+              alt={user?.fullName ? `${user.fullName}'s profile` : 'Default profile img'} 
+            />
+            <div className="names">
+              <h3>{user?.fullName || 'User'}</h3>
+              <h4>@{user?.username || 'username'}</h4>
+            </div>
+            {/* Icon pointing down */}
+            <Icon>
+              <i className="fa-solid fa-chevron-down" />
+            </Icon>
+          </ProfileDiv>
+        </LeftDiv>
+      </Container>
+    );
+  };
+  
+  export default Header;
   // return (
   //     <div className="Header">
 
@@ -140,6 +147,4 @@ const Header = () => {
   //     </div>
 
   // );
-};
 
-export default Header;

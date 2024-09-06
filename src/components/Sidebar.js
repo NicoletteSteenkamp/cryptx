@@ -6,6 +6,7 @@ import { MdClose, MdMenu } from "react-icons/md";
 import { FiPieChart, FiMail, FiSettings, FiLogOut } from "react-icons/fi";
 import logo from "./images/Logo.jpg";
 import styled from "styled-components";
+import { useClerk } from "@clerk/clerk-react";
 
 const SidebarWrap = styled.div`
   background-color: #F3F3F3;
@@ -26,41 +27,42 @@ const SidebarWrap = styled.div`
   padding: 20px;
   /* Add padding inside the sidebar */
 `
-
 export default function Sidebar() {
+	const { signOut } = useClerk(); // Access the Clerk instance to sign out
+  
 	return (
-		<SidebarWrap >
-			<div className="logo">
-				<img src={logo} alt="" />
-			</div>
-			<div className="sidebar-menu">
-				<ul>
-					<li className=" dashboard">
-						{" "}<MdDashboard />
-						<h3>Overview</h3>
-					</li>
-					<li>
-						<FiPieChart />
-						<h3>Chart</h3>
-					</li>
-					<li>
-						{" "}<BiWallet />
-						<h3>Transactions</h3>
-					</li>
-					<li>
-						<FiMail />
-						<h3>Mail Box</h3>
-					</li>
-					<li>
-						<FiSettings />
-						<h3>Settings</h3>
-					</li>
-					<li>
-						<FiLogOut />
-						<h3>Logout</h3>
-					</li>
-				</ul>
-			</div>
-		</SidebarWrap>
+	  <SidebarWrap>
+		<div className="logo">
+		  <img src={logo} alt="Logo" />
+		</div>
+		<div className="sidebar-menu">
+		  <ul>
+			<li className="dashboard">
+			  <MdDashboard />
+			  <h3>Overview</h3>
+			</li>
+			<li>
+			  <FiPieChart />
+			  <h3>Chart</h3>
+			</li>
+			<li>
+			  <BiWallet />
+			  <h3>Transactions</h3>
+			</li>
+			<li>
+			  <FiMail />
+			  <h3>Mail Box</h3>
+			</li>
+			<li>
+			  <FiSettings />
+			  <h3>Settings</h3>
+			</li>
+			<li onClick={() => signOut()}> {/* Trigger signOut on click */}
+			  <FiLogOut />
+			  <h3>Logout</h3>
+			</li>
+		  </ul>
+		</div>
+	  </SidebarWrap>
 	);
-}
+  }
