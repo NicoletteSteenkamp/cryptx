@@ -1,0 +1,53 @@
+.sidebar {
+  background-color: #F3F3F3;
+  width: 280px;
+  /* Set the width of the sidebar */
+  height: 100vh;
+  /* Make the sidebar full height */
+  position: fixed;
+  /* Fix the sidebar on the left side */
+  top: 0;
+  left: 0;
+  /* Align the sidebar to the left side */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  /* Add a shadow for depth */
+  display: flex;
+  flex-direction: column;
+  /* Stack elements vertically */
+  padding: 20px;
+  /* Add padding inside the sidebar */
+}
+
+.sidebar-menu ul {
+  list-style-type: none;
+  color: rgba(158, 158, 158, 1);
+  padding: 10px;
+
+}
+
+li {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Vertically center the items */
+  margin-bottom: 20px; /* Add space between list items */
+  padding: 10px; 
+  cursor: pointer;
+  
+
+  /* Add padding inside each list item */
+}
+
+li h3 {
+  margin-left: 10px; /* Adds space between the icon and the text */
+  font-size: 16px; /* Set font size */
+  color: rgba(158, 158, 158, 1);/* Text color */
+  font-weight: 500; /* Text weight */
+}
+
+
+.dashboard{
+  color:#6154F0;
+}
+
+.dashboard  > h3{
+  color:#6154F0;
+}
