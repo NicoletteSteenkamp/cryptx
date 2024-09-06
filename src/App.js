@@ -7,8 +7,8 @@ import Login from "./Pages/SignIn";
 import Signup from "./Pages/Register"; 
 import { SignedIn, useAuth } from "@clerk/clerk-react"; 
 import styled from "styled-components";
-
 import "./App.css";
+
 
 const Wrap = styled.div`
 display: flex;
@@ -24,35 +24,35 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    if (isSignedIn) {
-      if (location.pathname === "/signup" || location.pathname === "/login") {
-        navigate("/app");
-      }
-    } else {
-      if (location.pathname !== "/login") {
-        navigate("/login");
-      }
-    }
-  }, [isSignedIn, navigate, location.pathname]);
+  // useEffect(() => {
+  //   if (isSignedIn) {
+  //     if (location.pathname === "/signup" || location.pathname === "/login") {
+  //       navigate("/app");
+  //     }
+  //   } else {
+  //     if (location.pathname !== "/login") {
+  //       navigate("/login");
+  //     }
+  //   }
+  // }, [isSignedIn, navigate, location.pathname]);
 
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route
-        path="/app"
+        path="/test"
         element={
-          <SignedIn>
+          
              <Wrap>
              <Sidebar />
              <Content>
               <Header />
               </Content>
               </Wrap>
-          </SignedIn>
         }
       />
+
       <Route
         path="/"
         element={
