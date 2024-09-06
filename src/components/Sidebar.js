@@ -5,11 +5,31 @@ import { BiWallet } from "react-icons/bi";
 import { MdClose, MdMenu } from "react-icons/md";
 import { FiPieChart, FiMail, FiSettings, FiLogOut } from "react-icons/fi";
 import logo from "./images/Logo.jpg";
+import styled from "styled-components";
 
+const SidebarWrap = styled.div`
+  background-color: #F3F3F3;
+  width: 280px;
+  /* Set the width of the sidebar */
+  height: 100vh;
+  /* Make the sidebar full height */
+  position: relative;
+  /* Fix the sidebar on the left side */
+  /* top: 0;
+  left: 0; */
+  /* Align the sidebar to the left side */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  /* Add a shadow for depth */
+  display: flex;
+  flex-direction: column;
+  /* Stack elements vertically */
+  padding: 20px;
+  /* Add padding inside the sidebar */
+`
 
 export default function Sidebar() {
 	return (
-		<div className="sidebar">
+		<SidebarWrap >
 			<div className="logo">
 				<img src={logo} alt="" />
 			</div>
@@ -41,6 +61,6 @@ export default function Sidebar() {
 					</li>
 				</ul>
 			</div>
-		</div>
+		</SidebarWrap>
 	);
 }

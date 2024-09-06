@@ -6,8 +6,17 @@ import "./App.css";
 import Login from "./Pages/SignIn";
 import Signup from "./Pages/Register"; 
 import { SignedIn, useAuth } from "@clerk/clerk-react"; 
+import styled from "styled-components";
 
 import "./App.css";
+
+const Wrap = styled.div`
+display: flex;
+`
+
+const Content = styled.div`
+flex: 1;
+`
 
 
 export default function App() {
@@ -35,10 +44,12 @@ export default function App() {
         path="/app"
         element={
           <SignedIn>
-            <>
+             <Wrap>
+             <Sidebar />
+             <Content>
               <Header />
-              <Sidebar />
-            </>
+              </Content>
+              </Wrap>
           </SignedIn>
         }
       />
