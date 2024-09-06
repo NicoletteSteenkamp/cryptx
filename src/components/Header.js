@@ -111,8 +111,8 @@ const Header = () => {
         <ProfileDiv>
           <Image src={profile} alt="profile img" />
           <div className="names">
-            <h3>Laurice</h3>
-            <h4>@laurice22</h4>
+            <h3>User</h3>
+            <h4>@username</h4>
           </div>
           {/* icon point down */}
           <Icon>
