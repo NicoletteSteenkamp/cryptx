@@ -31,3 +31,18 @@ li h3 {
 .dashboard  > h3{
   color:#6154F0;
 }
+
+
+.sidebar {
+  background-color: #F3F3F3;
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+

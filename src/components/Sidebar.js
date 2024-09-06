@@ -1,5 +1,5 @@
 import React from "react";
-import "../Sidebar.css";
+import "../components/Sidebar.css";
 import { MdDashboard } from "react-icons/md";
 import { BiWallet } from "react-icons/bi";
 import { MdClose, MdMenu } from "react-icons/md";
