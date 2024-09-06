@@ -4,7 +4,7 @@ import { SignIn } from '@clerk/clerk-react';
 const Login = () => {
     return(
         <div>
-     <SignIn path="/login" signUpUrl="/signup" /> 
+     <SignIn path="/login" mode=" modal"  signUpUrl="/signup" /> 
     </div>
     );
     };
