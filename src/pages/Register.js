@@ -1,6 +1,14 @@
-import { SignUp } from '@clerk/clerk-react'
+import React from 'react';
+import { SignUp } from '@clerk/clerk-react';
 
-const SignUpPage = () => <SignUp path="/sign-up" />
+const Signup = () => {
+    return ( <div>
+        <SignUp path="/" routing="path" mode=" modal" signInUrl="/login" />
+      </div>
+    );
+  };
+  
+  export default Signup;
 
-export default SignUpPage
+
 
