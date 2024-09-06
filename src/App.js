@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes, Navigate, useNavigate, useLocation,useEffect } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Header from "./components/header";
+import Header from "./components/Header";
 import "./App.css";
 import Login from "./pages/Login";
 import Signup from "./Pages/Register"; 
