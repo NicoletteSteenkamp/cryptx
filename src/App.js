@@ -8,11 +8,14 @@ import {
 } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import Login from "./Pages/SignIn";
-import Signup from "./Pages/Register";
+import Login from "./pages/SignIn";
+import Signup from "./pages/Register";
 import { SignedIn, useAuth } from "@clerk/clerk-react";
 import styled from "styled-components";
 
+import "./App.css";
+
+// Correctly define styled components
 const Wrap = styled.div`display: flex;`;
 
 const Content = styled.div`flex: 1;`;

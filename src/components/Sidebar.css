@@ -1,8 +1,8 @@
 .sidebar-menu ul {
   list-style-type: none;
-  color: white;
+
   padding: 10px;
-  /* color: rgb(203, 203, 203); */
+  color: rgb(203, 203, 203);
 }
 
 li {
@@ -12,8 +12,6 @@ li {
   padding: 10px; 
   cursor: pointer;
   
-
-  /* Add padding inside each list item */
 }
 
 li h3 {
