@@ -8,14 +8,15 @@ import {
 } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import Login from "./pages/SignIn";
-import Signup from "./pages/Register";
+import Login from "./Pages/SignIn";
+import Signup from "./Pages/Register";
 import { SignedIn, useAuth } from "@clerk/clerk-react";
 import styled from "styled-components";
+import Footer from "./components/Footer";
 
 import "./App.css";
 
-// Correctly define styled components
+
 const Wrap = styled.div`display: flex;`;
 
 const Content = styled.div`flex: 1;`;
@@ -39,8 +40,7 @@ export default function App() {
 		},
 		[isSignedIn, navigate, location.pathname]
 	);
-
-	return (
+  return (
 		<Routes>
 			<Route path="/login" element={<Login />} />
 			<Route path="/signup" element={<Signup />} />
@@ -52,6 +52,8 @@ export default function App() {
 							<Sidebar />
 							<Content>
 								<Header />
+								{/* Add the main content here */}
+								<Footer />
 							</Content>
 						</Wrap>
 					</SignedIn>

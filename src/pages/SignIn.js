@@ -2,7 +2,7 @@ import React from 'react';
 import { SignIn } from '@clerk/clerk-react';
 import styled from 'styled-components';
 
-// Wrapper to center content
+
 const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column; // Stack text and form vertically

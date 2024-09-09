@@ -113,11 +113,13 @@ const Header = () => {
           <ProfileDiv>
             <Image 
               src={user?.profileImageUrl || profile} 
-              alt={user?.fullName ? `${user.fullName}'s profile` : 'Default profile img'} 
+              alt={user?.fullName ? `${user.fullName}'s profile` : 'profile'} 
             />
             <div className="names">
-              <h3>{user?.fullName || 'User'}</h3>
-              <h4>@{user?.username || 'username'}</h4>
+              {user?.fullName || 'User'}
+              <br/>
+              
+              @{user?.username || 'username'}
             </div>
             {/* Icon pointing down */}
             <Icon>
