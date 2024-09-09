@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client'
 import App from './App';
 import { ClerkProvider } from '@clerk/clerk-react'
 import { shadesOfPurple} from '@clerk/themes'
+
+
 const PUBLISHABLE_KEY  =  'pk_test_ZmFuY3ktc2t1bmstMTEuY2xlcmsuYWNjb3VudHMuZGV2JA'
 
 
