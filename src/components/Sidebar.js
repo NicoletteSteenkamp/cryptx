@@ -32,13 +32,13 @@ export default function Sidebar() {
       <div className="sidebar-menu">
         <ul>
           <li>
-            <Link to="/app/overview">
+            <Link to="/">
               <MdDashboard />
               <h3>Overview</h3>
             </Link>
           </li>
           <li>
-            <Link to="/app/chart">
+            <Link to="/app/price-chart">
               <FiPieChart />
               <h3>Chart</h3>
             </Link>

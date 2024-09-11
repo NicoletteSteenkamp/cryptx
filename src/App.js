@@ -14,6 +14,7 @@ import Signup from "./Pages/Register";
 import Markets from "./Pages/Markets"; 
 import Footer from "./components/Footer";
 import styled from "styled-components";
+import PriceChart from "./Pages/PriceChart";
 
 import Exchanges from "./Pages/Exchanges"; 
 import "./App.css";
@@ -58,7 +59,7 @@ export default function App() {
                 <Header />
                 <Routes>
                 <Route path="coin-markets" element={<Markets />} /> 
-                  
+                <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
                   
                   <Route path="exchanges" element={<Exchanges />} />
                   {/* Add more routes as needed */}
