@@ -1,23 +1,14 @@
 import { useEffect } from "react";
-import {
-  Route,
-  Routes,
-  Navigate,
-  useNavigate,
-  useLocation
-} from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { SignedIn, useAuth } from "@clerk/clerk-react";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Login from "./Pages/SignIn";
 import Signup from "./Pages/Register";
-import Markets from "./Pages/Markets"; 
+import Markets from "./Pages/Markets";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 import PriceChart from "./Pages/PriceChart";
-
-import Exchanges from "./Pages/Exchanges"; 
-import "./App.css";
 
 const Wrap = styled.div`
   display: flex;
@@ -25,7 +16,6 @@ const Wrap = styled.div`
 
 const Content = styled.div`
   flex: 1;
-  padding: 20px;
 `;
 
 export default function App() {
@@ -58,12 +48,9 @@ export default function App() {
               <Content>
                 <Header />
                 <Routes>
-                <Route path="coin-markets" element={<Markets />} /> 
-                <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
-                  
-                  <Route path="exchanges" element={<Exchanges />} />
+                  <Route path="coin-markets" element={<Markets />} />
+                  <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
                   {/* Add more routes as needed */}
-                 
                 </Routes>
                 <Footer />
               </Content>
