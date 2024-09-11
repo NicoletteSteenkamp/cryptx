@@ -9,6 +9,7 @@ import Markets from "./Pages/Markets";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 import PriceChart from "./Pages/PriceChart";
+import Exchanges from "./Pages/Exchanges";
 
 const Wrap = styled.div`
   display: flex;
@@ -50,6 +51,7 @@ export default function App() {
                 <Routes>
                   <Route path="coin-markets" element={<Markets />} />
                   <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
+                  <Route path="price-chart" element={<Exchanges />} />
                   {/* Add more routes as needed */}
                 </Routes>
                 <Footer />

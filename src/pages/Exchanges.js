@@ -1,4 +1,4 @@
-// src/Pages/Exchanges.js
+
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Typography } from 'antd';
 import axios from 'axios';
