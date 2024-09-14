@@ -13,7 +13,7 @@ const CoinMarkets = () => {
   const coinIds = {
     'bitcoin': 90,
     'ethereum': 80,
-    'litecoin': 80,
+    'litecoin': 80, 
     'cardano': 2010,
     'shiba-inu': 2011
   };
@@ -25,12 +25,13 @@ const CoinMarkets = () => {
       try {
         // Fetching data for each coin
         const responses = await Promise.all(
-          Object.values(coinIds).map(id => 
+          Object.entries(coinIds).map(([coinName, id]) =>
             axios.get(`https://api.coinlore.net/api/coin/markets/?id=${id}`)
+              .then(response => ({ coinName, data: response.data }))
           )
         );
         // Updating state with fetched data
-        setMarketData(responses.map(response => response.data));
+        setMarketData(responses);
       } catch (error) {
         setError('Error fetching market data');
         console.error('Error fetching market data:', error);
@@ -48,18 +49,17 @@ const CoinMarkets = () => {
   return (
     <div>
       <Title level={2}>Coin Market Data</Title>
-      {marketData.map((coinMarkets, index) => {
-        // Ensure coinMarkets is an array
-        if (!Array.isArray(coinMarkets)) {
-          console.error('Expected array but got:', coinMarkets);
+      {marketData.map(({ coinName, data }, index) => {
+        // Ensure data is an array
+        if (!Array.isArray(data)) {
+          console.error('Expected array but got:', data);
           return <Alert key={index} message="Data format error" type="error" />;
         }
-        const coinName = Object.keys(coinIds)[index];
         return (
           <div key={coinName}>
             <Title level={3}>{coinName}</Title>
             <Row gutter={[24, 24]}>
-              {coinMarkets.map((market, i) => (
+              {data.map((market, i) => (
                 <Col span={12} key={i}>
                   <Card title={market.name} hoverable>
                     <Text>Base: {market.base}</Text><br />
@@ -78,4 +78,3 @@ const CoinMarkets = () => {
 };
 
 export default CoinMarkets;
-
