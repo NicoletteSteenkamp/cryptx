@@ -1,0 +1,93 @@
+.crypto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  max-width: 252px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.top-coins {
+  display: flex;
+  gap:30px
+}
+
+.bottom-coins {
+  display: flex;
+}
+.coins {
+  display: grid;
+  width: 100%;
+  gap: 40px; /* Add spacing between the blocks */
+}
+
+.bitcoin, .ethereum, .litecoin, .cardano {
+  background-color: var(--White, #fff);
+  border-radius: 20px;
+  box-shadow: 4px 4px 33px rgba(0, 0, 0, 0.05);
+  padding: 31px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.bitcoin img, .ethereum img, .litecoin img, .cardano img {
+  width: 52px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0;
+}
+
+.price {
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 24px;
+  color: var(--Text-100, #1a1a1a);
+}
+
+.percentage {
+  display: flex;
+  gap: 10px;
+  margin: auto 0;
+  color: var(--Sec-100, #1ecb4f);
+  font-weight: 500;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+.percentage img {
+  width: 18px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  margin: auto 0;
+}
+
+.text {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--Text-10, #9e9e9e);
+  margin-top: 5px;
+}
+
+/* charts  */
+.charts {
+  color: var(--Text-10, #9e9e9e);
+  font-weight: 400;
+  line-height: 1;
+  justify-content: center;
+  align-self: stretch;
+  margin: auto 0;
+}
+
+@media (max-width: 991px) {
+  .charts {
+    max-width: 100%;
+    margin-right: 4px;
+    white-space: initial;
+  }
+}

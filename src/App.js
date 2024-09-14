@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Route, Routes, Navigate, useNavigate, useLocation } from "react-router-dom";  
 import Sidebar from "./components/Sidebar";  
 import Header from "./components/Header";  
+import Crypto from "./components/crypto"
 import "./App.css";  
 import Login from "./pages/SignIn";  
 import Signup from "./pages/Register";   
@@ -45,6 +46,7 @@ export default function App() {
               <Sidebar />  
               <Content>  
                 <Header />  
+                <Crypto />
               </Content>  
             </Wrap>  
           </SignedIn>  
