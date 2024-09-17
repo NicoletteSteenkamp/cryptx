@@ -51,7 +51,7 @@ export default function App() {
                 <Routes>
                   <Route path="coin-markets" element={<Markets />} />
                   <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
-                  <Route path="price-chart" element={<Exchanges />} />
+                  <Route path="exchanges" element={<Exchanges />} />
                   {/* Add more routes as needed */}
                 </Routes>
                 <Footer />
