@@ -39,29 +39,32 @@ export default function App() {
 		[isSignedIn, navigate, location.pathname]
 	);
 
-	return (
-		<Routes>
-			<Route path="/login" element={<Login />} />
-			<Route path="/signup" element={<Signup />} />
-			<Route
-				path="/app"
-				element={
-					<SignedIn>
-						<Wrap>
-							<Sidebar />
-							<Content>
-								<Header />
-								<Crypto />
-							</Content>
-						</Wrap>
-					</SignedIn>
-				}
-			/>
-			<Route
-				path="/"
-				element={isSignedIn ? <Navigate to="/app" /> : <Navigate to="/login" />}
-			/>
-			<Route path="*" element={<Navigate to="/" />} />
-		</Routes>
-	);
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route
+        path="/app/*"
+        element={
+          <SignedIn>
+            <Wrap>
+              <Sidebar />
+              <Content>
+                <Header />
+                <Routes>
+                  <Route path="coin-markets" element={<Markets />} />
+                  <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
+                  <Route path="price-chart" element={<Exchanges />} />
+                  {/* Add more routes as needed */}
+                </Routes>
+                <Footer />
+              </Content>
+            </Wrap>
+          </SignedIn>
+        }
+      />
+      <Route path="/" element={isSignedIn ? <Navigate to="/app" /> : <Navigate to="/login" />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
 }

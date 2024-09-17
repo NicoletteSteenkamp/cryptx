@@ -9,29 +9,14 @@ const CoinMarkets = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Mapping of coin names to their respective IDs
-  const coinIds = {
-    'bitcoin': 90,
-    'ethereum': 80,
-    'litecoin': 80, 
-    'cardano': 2010,
-    'shiba-inu': 2011
-  };
-
   useEffect(() => {
     const fetchMarketData = async () => {
       setLoading(true);
       setError(null);
       try {
-        // Fetching data for each coin
-        const responses = await Promise.all(
-          Object.entries(coinIds).map(([coinName, id]) =>
-            axios.get(`https://api.coinlore.net/api/coin/markets/?id=${id}`)
-              .then(response => ({ coinName, data: response.data }))
-          )
-        );
-        // Updating state with fetched data
-        setMarketData(responses);
+        // Fetching market data from CoinCap API
+        const response = await axios.get('https://api.coincap.io/v2/markets');
+        setMarketData(response.data.data); 
       } catch (error) {
         setError('Error fetching market data');
         console.error('Error fetching market data:', error);
@@ -49,30 +34,19 @@ const CoinMarkets = () => {
   return (
     <div>
       <Title level={2}>Coin Market Data</Title>
-      {marketData.map(({ coinName, data }, index) => {
-        // Ensure data is an array
-        if (!Array.isArray(data)) {
-          console.error('Expected array but got:', data);
-          return <Alert key={index} message="Data format error" type="error" />;
-        }
-        return (
-          <div key={coinName}>
-            <Title level={3}>{coinName}</Title>
-            <Row gutter={[24, 24]}>
-              {data.map((market, i) => (
-                <Col span={12} key={i}>
-                  <Card title={market.name} hoverable>
-                    <Text>Base: {market.base}</Text><br />
-                    <Text>Quote: {market.quote}</Text><br />
-                    <Text>Price: ${market.price_usd.toFixed(2)}</Text><br />
-                    <Text>Volume: ${market.volume_usd.toFixed(2)}</Text>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-          </div>
-        );
-      })}
+      <Row gutter={[24, 24]}>
+        {marketData.map((market, index) => (
+          <Col span={12} key={index}>
+            <Card title={market.exchangeId} hoverable>
+              <Text>Base: {market.baseSymbol}</Text><br />
+              <Text>Quote: {market.quoteSymbol}</Text><br />
+              <Text>Price (USD): ${parseFloat(market.priceUsd).toFixed(2)}</Text><br />
+              <Text>Volume (USD): ${parseFloat(market.volumeUsd24Hr).toFixed(2)}</Text><br />
+              <Text>Exchange: {market.exchangeId}</Text>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };
