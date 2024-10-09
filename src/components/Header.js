@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
 import "font-awesome/css/font-awesome.min.css";
-import profile from "./images/profileicon.jpeg";
+import profile from "../images/profileicon";
 import { useUser } from '@clerk/clerk-react'; 
 
 const Container = styled.div`
@@ -112,7 +111,7 @@ const Header = () => {
           </div>
           <ProfileDiv>
             <Image 
-              src={user?.profileImageUrl || profile} 
+              src={user?.profileiconUrl || profile} 
               alt={user?.fullName ? `${user.fullName}'s profile` : 'profile'} 
             />
             <div className="names">

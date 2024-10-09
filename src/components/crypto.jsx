@@ -1,162 +1,23 @@
 import styled from "styled-components";
-import { useState, useEffect, useCallback } from "react";
-import litecoin from "../images/litecoin.png";
-import bitcoin from "../images/bitcoin.png";
-import ethereum from "../images/ethereum.png";
-import cardano from "../images/cardano.png";
-import receivedIcon from "../images/received_icon.png";
-import BuyIcon from "../images/buy-icon.png";
-import EthereunLine from "../images/Ethereum-line.png";
-import BitcoinLine from "../images/Bitcoin-line.png";
-import LitecoinLine from "../images/litecoin-line.png";
-import cardanoLine from "../images/cardano-line.png";
-import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
-import {faSpinner} from "react-icons";
-import axios from "axios";
-import PriceChart from "../Pages/PriceChart";
-import { FaSpinner } from "react-icons/fa";
-
-
-
-const IconsSec = styled.div`
-  display: flex;
-  gap: 0.65rem;
-  width: 120px;
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  h3 {
-    font-size: 0.9rem;
-  }
-
-  p {
-    font-size: 0.8rem;
-    color: #b1b1b1;
-  }
-
-  h4 {
-    font-size: 0.8rem;
-    color: #b1b1b1;
-    font-weight: 400;
-  }
-`;
-
-const IconPic = styled.div`
-  width: 45px;
-  height: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3px solid #b1b1b1;
-  border-radius: 50%;
-
-  img {
-    width: 35px;
-    border-radius: 50%;
-  }
-`;
-
-const ChangeSec = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-
-  h3 {
-    color: #b1b1b1;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    font-weight: 400;
-  }
-
-  h4 {
-    font-size: 0.85rem;
-    text-align: right;
-  }
-
-  p {
-    color: ${({ color }) => color};
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-align: right;
-  }
-`;
-
-const WrapRight = styled.div`
-  padding: 1rem;
-  flex: 1;
-`;
-
-const RightItem = styled.div`
-  margin-top: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .history {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
-    p {
-      font-size: 0.8rem;
-      color: #b1b1b1;
-    }
-
-    h3 {
-      font-size: 1rem;
-    }
-  }
-`;
-
-const RightIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border: 1px solid #b1b1b1;
-  border-radius: 50%;
-`;
-const MainContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: space-between;
-`;
+import styles from "../components/crypto.module.css";
 
 
 const Container = styled.section`
-  display: flex;
-  gap: 4rem;
-  padding: 0 4rem 0 0;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 1rem;
+  padding: 0 4rem 0 1rem;
+
+   @media (min-width: 768px) {
+    grid-template-columns: 50% 50%;
+    padding: 0 4rem 0 1rem;
+  }
 `;
 
-const Wrap = styled.div`
-  padding: 1rem;
-`;
-
-const Heading = styled.h2`
-  font-size: 1.1rem;
-`;
-
-// New styled components
 const LeftWrap = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 1rem;
-`;
-
-const RightWrap = styled.div`
-  box-shadow: 0 0.5px 10px #a1a1a1;
-  border-radius: 15px;
-  padding: 1rem;
 `;
 
 const Card = styled.div`
@@ -208,289 +69,239 @@ const Text = styled.p`
   color: #b1b1b1;
 `;
 
-const BottomSection = () => {
-  const [coinsArray, setCoinsArray] = useState([
-    {
-      id: 1,
-      name: "Ethereum",
-      shortName: "ETH",
-      icon: ethereum,
-      line: EthereunLine,
-      change: +14.02,
-      price: "39,786",
-      transIcon: receivedIcon,
-      time: "19:30",
-      TransPrice: "24,102",
-    },
-    {
-      id: 2,
-      name: "Bitcoin",
-      shortName: "BIT",
-      icon: bitcoin,
-      line: BitcoinLine,
-      change: +4.02,
-      price: "21,786",
-      transIcon: BuyIcon,
-      time: "14:32",
-      TransPrice: "4,157",
-    },
-    {
-      id: 3,
-      name: "Litecoin",
-      shortName: "ITC",
-      icon: litecoin,
-      line: LitecoinLine,
-      change: -4.02,
-      price: "9,786",
-      transIcon: BuyIcon,
-      time: "13:50",
-      TransPrice: "64,787",
-    },
-    {
-      id: 4,
-      name: "Cardano",
-      shortName: "ADA",
-      icon: cardano,
-      line: cardanoLine,
-      change: +0.02,
-      price: "4,786",
-      transIcon: BuyIcon,
-      time: "09:38",
-      TransPrice: "14,265",
-    },
-  ]);
+const RightWrap = styled.div`
+  box-shadow: 0 0.5px 10px #a1a1a1;
+  border-radius: 15px;
+  padding: 1rem;
+`;
 
-  const fetchCoinPrices = useCallback(async () => {
-    try {
-      const updatedCardsData = await Promise.all(
-        coinsArray.map(async (item) => {
-          const response = await axios.get(
-            `https://api.coincap.io/v2/assets/${item.shortName.toLowerCase()}`
-          );
-          const data = response.data.data;
-          const num = data.priceUsd >= 1 ? 0 : 2;
-
-          return {
-            ...item,
-            change: parseFloat(data.changePercent24Hr).toFixed(2),
-            price: new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-              maximumFractionDigits: num,
-            }).format(data.priceUsd),
-          };
-        })
-      );
-
-      setCoinsArray(updatedCardsData);
-    } catch (err) {
-      console.error(err);
-    }
-  }, [coinsArray]);
-
-  useEffect(() => {
-    fetchCoinPrices();
-  }, [fetchCoinPrices]);
-
-  useEffect(() => {
-    const interval = setInterval(fetchCoinPrices, 1000 * 60); 
-    return () => clearInterval(interval);
-  }, [fetchCoinPrices]);
-
-  return (
-    <Container>
-      <Wrap>
-        <Heading>Live Market</Heading>
-        {coinsArray.map((item) => (
-          <RightItem key={item.id}>
-            <IconsSec>
-              <RightIcon src={item.transIcon} />
-              <div className="text">
-                <h3>{item.name}</h3>
-                <h4>{item.transIcon === BuyIcon ? "Buy" : "Received"}</h4>
-              </div>
-            </IconsSec>
-
-            <div className="history text">
-              <h3>${item.TransPrice}</h3>
-              <p>Today, {item.time}</p>
-            </div>
-          </RightItem>
-        ))}
-      </Wrap>
-      <WrapRight>
-        <Heading>Transactions</Heading>
-        {coinsArray.map((item) => (
-          <RightItem key={item.id}>
-            <IconsSec>
-              <RightIcon src={item.transIcon} />
-              <div className="text">
-                <h3>{item.name}</h3>
-                <h4>{item.transIcon === BuyIcon ? "Buy" : "Received"}</h4>
-              </div>
-            </IconsSec>
-            <div className="history text">
-              <h3>${item.TransPrice}</h3>
-              <p>Today, {item.time}</p>
-            </div>
-          </RightItem>
-        ))}
-      </WrapRight>
-    </Container>
-  );
+export {
+  Container,
+  LeftWrap,
+  Card,
+  Icons,
+  Image,
+  Text,
+  RightWrap
 };
+;
 
-
-const TopSection = () => {
-  const [coinHistory, setCoinHistory] = useState(null);
-  const [activeCoin, setActiveCoin] = useState("");
-  const [cardsData, setCardsData] = useState([
-    {
-      icon: bitcoin,
-      increase: null,
-      price: null,
-      name: "Bitcoin",
-      short: "BTC",
-      coin: "bitcoin",
-    },
-    {
-      icon: ethereum,
-      increase: null,
-      price: null,
-      name: "Ethereum",
-      short: "ETH",
-      coin: "ethereum",
-    },
-    {
-      icon: litecoin,
-      increase: null,
-      price: null,
-      name: "Litecoin",
-      short: "ITL",
-      coin: "litecoin",
-    },
-    {
-      icon: cardano,
-      increase: null,
-      price: null,
-      name: "Cardano",
-      short: "ADA",
-      coin: "cardano",
-    },
-  ]);
-
-  const fetchData = async (coin, short) => {
-    try {
-      const response = await axios.get(
-        `https://api.coincap.io/v2/assets/${coin}/history?interval=m5`
-      );
-      const data = response.data.data;
-      setActiveCoin(short);
-      const mapData = data.map((item) => {
-        const options = { day: "numeric", month: "short" };
-        return {
-          date: new Date(item.time).toLocaleDateString("en-US", options),
-          price: item.priceUsd,
-        };
-      });
-      setCoinHistory(mapData);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const fetchCoinPrices = async () => {
-    try {
-      const updatedCardsData = await Promise.all(
-        cardsData.map(async (item) => {
-          try {
-            const response = await axios.get(
-              `https://api.coincap.io/v2/assets/${item.coin}`
-            );
-            const data = response.data.data;
-  
-            
-            const decimalPlaces = data.priceUsd >= 1 ? 0 : 2;
-  
-           
-            return {
-              ...item,
-              increase: parseFloat(data.changePercent24Hr).toFixed(2),
-              price: new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-                maximumFractionDigits: decimalPlaces,
-              }).format(data.priceUsd),
-            };
-          } catch (error) {
-            console.error(`Error fetching price for ${item.coin}:`, error);
-            return { ...item, price: "N/A", increase: "N/A" }; // Handle error per coin
-          }
-        })
-      );
-  
-      setCardsData(updatedCardsData);
-    } catch (err) {
-      console.error("Error fetching coin prices:", err);
-      
-    }
-  };
-  
-
-  useEffect(() => {
-    fetchData("bitcoin", "BTC");
-    fetchCoinPrices();
-  }, [fetchCoinPrices]);
-
+function Cryptopage() {
   return (
-    <Container>
-      <LeftWrap>
-        {cardsData.map((item) => {
-          return (
-            <Card
-              key={item.name}
-              onClick={() => fetchData(item.coin, item.short)}
-            >
-              <Icons color={item.increase < 0 ? "orange" : "rgb(45, 225, 45)"}>
-                <Image src={item.icon} alt={item.name} />
-                {item.increase !== null && (
-                  <div>
-                    {item.increase > 0 ? (
-                      <AiFillCaretUp />
-                    ) : (
-                      <AiFillCaretDown />
-                    )}
-                    {item.increase > 0 && "+"}
-                    {item.increase}%
+    <div>
+      <div className={styles.div}>
+        <div className={styles.div2}>
+          <div className={styles.div3}>
+            <div className={styles.column}>
+              <div className={styles.div4}>
+                <div className={styles.div5}>
+                  <div className={styles.div6}>
+                    <div className={styles.column}>
+                      <div className={styles.cardContent}>
+                        <div className={styles.div7}>
+                          <div className={styles.div8}>
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/89d246e4220feb31d6c934676417a9e8a61a8cce812acb6a30545d785fd9d599?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                              className={styles.img}
+                              alt="Bitcoin"
+                            />
+                            <div className={styles.div9}>
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e2a7fd3df1e496c95977ce345d83c590ebf7d1fa3bd2fda71cc6f05ae18aff9?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                                className={styles.img2}
+                                alt="Change"
+                              />
+                              <div>+0.25%</div>
+                            </div>
+                          </div>
+                          <div className={styles.amount}>$40,291</div>
+                          <div className={styles.text}>Bitcoin - BTC</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.column2}>
+                      <div className={styles.cardContent}>
+                        <div className={styles.div10}>
+                          <div className={styles.div11}>
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e7ae911116d829f9a021ff27c3406c4eb6546d9333e22aa68c92444cbad120ac?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                              className={styles.img}
+                              alt="Ethereum"
+                            />
+                            <div className={styles.div12}>
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e2a7fd3df1e496c95977ce345d83c590ebf7d1fa3bd2fda71cc6f05ae18aff9?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                                className={styles.img3}
+                                alt="Change"
+                              />
+                              <div>+0.25%</div>
+                            </div>
+                          </div>
+                          <div className={styles.amount}>$18,291</div>
+                          <div className={styles.text}>Ethereum - ETH</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                )}
-              </Icons>
-              
-              {item.price === null ? <fontawesomeicon icon={faSpinner} size="2x" spin /> : <h3>{item.price}</h3>}
-
-              <Text>
-                {item.name} - {item.short}
-              </Text>
-            </Card>
-          );
-        })}
-      </LeftWrap>
-      <RightWrap>
-        <h3>{activeCoin} Prices</h3>
-        {coinHistory && <PriceChart data={coinHistory} coin={activeCoin} />}
-
-      </RightWrap>
-    </Container>
+                </div>
+                <div className={styles.div13}>
+                  <div className={styles.div14}>
+                    <div className={styles.column}>
+                      <div className={styles.cardContent2}>
+                        <div className={styles.div15}>
+                          <div className={styles.div16}>
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/2ed096e10da2d178839063d727a17fb26c4605cacfbe730fabec36bd0e69bf37?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                              className={styles.img}
+                              alt="Litecoin"
+                            />
+                            <div className={styles.div17}>
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf8ccb6db837301c3c4716f1d747d5c463f5e61683da1e9ad9226278d8288443?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                                className={styles.img4}
+                                alt="Change"
+                              />
+                              <div>+0.25%</div>
+                            </div>
+                          </div>
+                          <div className={styles.amount2}>$8,291</div>
+                          <div className={styles.text}>Litecoin - ITL</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.column3}>
+                      <div className={styles.cardContent3}>
+                        <div className={styles.div18}>
+                          <div className={styles.div19}>
+                            <img
+                              loading="lazy"
+                              src="https://cdn.builder.io/api/v1/image/assets/TEMP/c685a08c5766b6bce435c60f010e822ef44240958ff0e78786de2e239641b706?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                              className={styles.img}
+                              alt="Cardano"
+                            />
+                            <div className={styles.div20}>
+                              <img
+                                loading="lazy"
+                                src="https://cdn.builder.io/api/v1/image/assets/TEMP/048a04a288b22be392cfda57bd5dd3254a44e25414e001f6e78c4274de0f0633?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                                className={styles.img5}
+                                alt="Change"
+                              />
+                              <div>-2.05%</div>
+                            </div>
+                          </div>
+                          <div className={styles.amount3}>$3,291</div>
+                          <div className={styles.text2}>Cardano - ADA</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.column4}>
+              <div className={styles.statistic}>
+                <div className={styles.div21}>
+                  <div className={styles.heading}>BTC Prices</div>
+                  <div className={styles.amount4}>$800</div>
+                  <div className={styles.div22}>
+                    <div className={styles.div23}>
+                      <div>$600</div>
+                      <div className={styles.amount5}>$400</div>
+                      <div className={styles.amount6}>$200</div>
+                      <div className={styles.amount7}>0</div>
+                    </div>
+                    <div className={styles.div24}>
+                      <div className={styles.div25}>
+                        <img
+                          loading="lazy"
+                          src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0b6a9634ba2efc1d3304dfe21ee4b4813344b86b7b653f7451129b97760434c?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                          className={styles.img6}
+                          alt="BTC Prices"
+                        />
+                        <div className={styles.div26}>
+                          <div className={styles.div27} />
+                          <div className={styles.div26}>$25,240</div>
+                        </div>
+                      </div>
+                      <div className={styles.div28} />
+                      <div className={styles.months}>
+                        <div className={styles.text3}>Jan</div>
+                        <div className={styles.text4}>Mar</div>
+                        <div className={styles.text5}>May</div>
+                        <div className={styles.text6}>Jul</div>
+                        <div className={styles.text7}>Sep</div>
+                        <div className={styles.text8}>Nov</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.column6}>
+              <div className={styles.liveMarket}>
+                <div className={styles.div31}>
+                  <div className={styles.heading2}>Live Market</div>
+                  <div className={styles.div32}>
+                    <div className={styles.div}>
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/c339dfe254dc110159f63fae9f3b7cb00e238f757d528b67f501a92d386d2d9e?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                        className={styles.img7}
+                        alt="Live Market"
+                      />
+                      <img
+                        loading="lazy"
+                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/45eae7019b62db6b5a6b8b13db00cb4dd8b38f9e049c0044d6a0d0177c0ac227?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                        className={styles.img8}
+                        alt="Live Market"
+                      />
+                    </div>
+                    <div className={styles.div33}>
+                      <div>BTC Price</div>
+                      <div className={styles.amount8}>$800</div>
+                    </div>
+                    <div className={styles.div34}>
+                      <div>ETH Price</div>
+                      <div className={styles.amount9}>$600</div>
+                    </div>
+                    <div className={styles.div35}>
+                      <div>ADA Price</div>
+                      <div className={styles.amount10}>$200</div>
+                    </div>
+                    <div className={styles.div36}>
+                      <div>ITL Price</div>
+                      <div className={styles.amount11}>$100</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.column7}>
+              <div className={styles.chart}>
+                <div className={styles.div37}>
+                  <div className={styles.heading3}>Price Chart</div>
+                  <div className={styles.chartContainer}>
+                    <img
+                      loading="lazy"
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e2a7fd3df1e496c95977ce345d83c590ebf7d1fa3bd2fda71cc6f05ae18aff9?placeholderIfAbsent=true&apiKey=90d00836b5a049b48c0253add244096a"
+                      className={styles.chartImg}
+                      alt="Chart"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-};
-const cryptopage = () => {
-  return (
-    <MainContainer>
-      <TopSection />
-     
-      <BottomSection />
-    </MainContainer>
-  );
-};
+}
 
-export default cryptopage;
+export default Cryptopage;
