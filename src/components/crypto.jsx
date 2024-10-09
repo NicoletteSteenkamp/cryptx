@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import styles from "../components/crypto.module.css";
-import PriceChart from './Pages/PriceChart'; 
+import PriceChart from '../Pages/PriceChart'; 
 
 const Container = styled.section`
   display: grid;

@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import "font-awesome/css/font-awesome.min.css";
-import profile from "../images/profileicon";
-import { useUser } from '@clerk/clerk-react'; 
+import profileicon from "../images/profileicon.jpeg";
+import { useUser } from '@clerk/clerk-react';
+
 
 const Container = styled.div`
   display: flex;
@@ -93,42 +94,41 @@ const Icon = styled.div`
 `;
 
 const Header = () => {
-    const { user } = useUser(); // Get current user from Clerk
-  
-    return (
-      <Container>
-        {/* Right side content */}
-        <Search>
-          <input type="text" placeholder="Search type of keywords" />
-          <i className="fa fa-search search-icon" aria-hidden="true" />
-        </Search>
-  
-        <LeftDiv>
-          <div className="icons">
-            {/* Icons for notifications and queries */}
-            <i className="fa-regular fa-bell fa-icon" aria-hidden="true" />
-            <i className="fa-regular fa-circle-question" aria-hidden="true" />
+  const { user } = useUser();
+
+  return (
+    <Container>
+      {/* Right side content */}
+      <Search>
+        <input type="text" placeholder="Search type of keywords" />
+        <i className="fa fa-search search-icon" aria-hidden="true" />
+      </Search>
+
+      <LeftDiv>
+        <div className="icons">
+          {/* Icons for notifications and queries */}
+          <i className="fa-regular fa-bell fa-icon" aria-hidden="true" />
+          <i className="fa-regular fa-circle-question" aria-hidden="true" />
+        </div>
+        <ProfileDiv>
+          <Image 
+            src={user?.profileImageUrl || profileicon} 
+            alt={user?.fullName ? `${user.fullName}'s profile` : 'profile'} 
+          />
+          <div className="names">
+            {user?.fullName || 'User'}
+            <br/>
+            @{user?.username || 'username'}
           </div>
-          <ProfileDiv>
-            <Image 
-              src={user?.profileiconUrl || profile} 
-              alt={user?.fullName ? `${user.fullName}'s profile` : 'profile'} 
-            />
-            <div className="names">
-              {user?.fullName || 'User'}
-              <br/>
-              
-              @{user?.username || 'username'}
-            </div>
-            {/* Icon pointing down */}
-            <Icon>
-              <i className="fa-solid fa-chevron-down" />
-            </Icon>
-          </ProfileDiv>
-        </LeftDiv>
-      </Container>
-    );
-  };
+          {/* Icon pointing down */}
+          <Icon>
+            <i className="fa-solid fa-chevron-down" />
+          </Icon>
+        </ProfileDiv>
+      </LeftDiv>
+    </Container>
+  );
+};
   
   export default Header;
   // return (

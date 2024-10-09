@@ -6,7 +6,7 @@ import { BiWallet } from "react-icons/bi";
 import { BiAbacus } from "react-icons/bi";
 import { ImNewspaper } from "react-icons/im";
 import { FiPieChart, FiMail, FiLogOut } from "react-icons/fi";
-import logo from "./images/Logo.jpg";
+import Logo from "../images/Logo.jpg";
 import styled from "styled-components";
 import { useClerk } from "@clerk/clerk-react";
 
@@ -27,7 +27,7 @@ export default function Sidebar() {
   return (
     <SidebarWrap>
       <div className="logo">
-        <img src={logo} alt="Logo" />
+        <img src={Logo} alt="Logo" />
       </div>
       <div className="sidebar-menu">
         <ul>
