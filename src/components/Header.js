@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import "./Header.css"
+
 import "font-awesome/css/font-awesome.min.css";
 import profile from "./images/profileicon.jpeg";
 import { useUser } from '@clerk/clerk-react'; 

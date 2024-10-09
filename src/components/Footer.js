@@ -7,19 +7,26 @@ const FooterContainer = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1rem;
+  padding: 0.5rem; /* Reduced padding */
   background-color: #f3f3f3;
   box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1);
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* Smaller font size */
   
+  margin: 0 auto;
+
   a {
-    color: #6154f0; /* Custom link color */
+    color: #6154f0;
     text-decoration: none;
-    margin: 0 5px;
+    margin: 0 4px; /* Slightly tighter spacing */
     
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  /* Optional: Add more spacing between lines if necessary */
+  br {
+    margin-bottom: 0.2rem; /* Reduces space between lines */
   }
 `;
 
