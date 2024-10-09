@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import Crypto from "./components/crypto";
 import "./App.css";
 import Markets from './Pages/Markets';  
 import PriceChart from './Pages/PriceChart';  
@@ -18,6 +17,7 @@ import Login from "./Pages/SignIn";
 import Signup from "./Pages/Register";
 import { SignedIn, useAuth } from "@clerk/clerk-react";
 import styled from "styled-components";
+import Cryptopage from "./components/cryptopage";
 
 const Wrap = styled.div`display: flex;`;
 
@@ -53,12 +53,11 @@ export default function App() {
               <Content>
                 <Header />
                 <Routes>
-                  {/* Set "/app" to render the Crypto overview */}
-                  <Route path="/" element={<Crypto />} /> {/* This is the overview page */}
+                  <Route path="/" element={<Cryptopage />} /> 
                   <Route path="coin-markets" element={<Markets />} />
                   <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
                   <Route path="exchanges" element={<Exchanges />} />
-                  {/* Add more routes as needed */}
+                
                 </Routes>
                 <Footer />
               </Content>
