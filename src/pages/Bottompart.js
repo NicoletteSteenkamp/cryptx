@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from 'axios';
 import './BottomSection.css'; 
 import EthereunLine from "../images/Ethereum-line.png";
@@ -12,6 +11,8 @@ import cardano from "../images/cardano.png";
 import cardanoline from "../images/cardano-line.png";
 import receivedIcon from "../images/received_icon.png";
 import BuyIcon from "../images/buy-icon.png";
+
+const REFRESH_INTERVAL = 1000 * 60; // 1 minute
 
 const BottomSection = () => {
   const [coinsArray, setCoinsArray] = useState([
@@ -65,7 +66,7 @@ const BottomSection = () => {
     },
   ]);
 
-  const fetchCoinPrices = async () => {
+  const fetchCoinPrices = useCallback(async () => {
     try {
       const updatedCardsData = await Promise.all(
         coinsArray.map(async (item) => {
@@ -78,7 +79,7 @@ const BottomSection = () => {
 
           return {
             ...item,
-            change: parseFloat(data.usd_change_percentage).toFixed(2),
+            change: data.usd_change_percentage ? parseFloat(data.usd_change_percentage).toFixed(2) : 0,
             price: new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
@@ -90,66 +91,67 @@ const BottomSection = () => {
 
       setCoinsArray(updatedCardsData);
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching coin prices:", err);
     }
-  };
+  }, [coinsArray]); // Dependency array includes coinsArray
 
   useEffect(() => {
-    fetchCoinPrices(); // Fetch initial data on mount
-  }, []);
+    fetchCoinPrices(); 
+
+    const interval = setInterval(fetchCoinPrices, 1000 * 60); 
+    return () => clearInterval(interval); 
+  }, [fetchCoinPrices]); // Include fetchCoinPrices in dependency array
+
 
   useEffect(() => {
-    const interval = setInterval(fetchCoinPrices, 1000 * 60); // Update every minute
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [coinsArray]);
+    fetchCoinPrices(); 
+    const interval = setInterval(fetchCoinPrices, REFRESH_INTERVAL); 
+    return () => clearInterval(interval); 
+  }, [fetchCoinPrices]); 
 
   return (
     <div className="container">
       <div className="wrap">
         <h2 className="heading">Live Market</h2>
-        {coinsArray.map((item) => {
-          return (
-            <div className="stats-container" key={item.id}>
-              <div className="icons-sec">
-                <div className="icon-pic">
-                  <img src={item.icon} alt={item.name} />
-                </div>
-                <div className="text">
-                  <h3>{item.name}</h3>
-                  <p>{item.shortName} / USD</p>
-                </div>
+        {coinsArray.map((item) => (
+          <div className="stats-container" key={item.id}>
+            <div className="icons-sec">
+              <div className="icon-pic">
+                <img src={item.icon} alt={item.name} />
               </div>
-              <div className="change-sec" style={{ color: item.change < 0 ? "orange" : "rgb(45, 225, 45)" }}>
-                <h3>Change</h3>
-                <p>
-                  {item.change > 0 && "+"}
-                  {item.change}%
-                </p>
+              <div className="text">
+                <h3>{item.name}</h3>
+                <p>{item.shortName} / USD</p>
               </div>
-              <div className={`change-sec prices`}>
-                <h3>Price</h3>
-                <h4>{item.price} USD</h4>
-              </div>
-              <img className="image" src={item.line} alt={`${item.name} trend`} />
             </div>
-          );
-        })}
+            <div className="change-sec" style={{ color: item.change < 0 ? "orange" : "rgb(45, 225, 45)" }}>
+              <h3>Change</h3>
+              <p>
+                {item.change > 0 && "+"}
+                {item.change}%
+              </p>
+            </div>
+            <div className={`change-sec prices`}>
+              <h3>Price</h3>
+              <h4>{item.price} USD</h4>
+            </div>
+            <img className="image" src={item.line} alt={`${item.name} trend`} />
+          </div>
+        ))}
       </div>
       <div className="wrap-right">
         <h2 className="heading">Transactions</h2>
-        {coinsArray.map((item) => {
-          return (
-            <div className="right-item" key={item.id}>
-              <div className="history">
-                <h3>{item.time}</h3>
-                <p>Last transaction: {item.TransPrice} USD</p>
-              </div>
-              <div className="icon-pic right-icon">
-                <img src={item.transIcon} alt={`${item.name} transaction`} />
-              </div>
+        {coinsArray.map((item) => (
+          <div className="right-item" key={item.id}>
+            <div className="history">
+              <h3>{item.time}</h3>
+              <p>Last transaction: {item.TransPrice} USD</p>
             </div>
-          );
-        })}
+            <div className="icon-pic right-icon">
+              <img src={item.transIcon} alt={`${item.name} transaction`} />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
