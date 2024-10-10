@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import './BottomSection.css'; 
 import EthereunLine from "../images/Ethereum-line.png";
 import BitcoinLine from "../images/Bitcoin-line.png";
-import LitecoinLine from "../imageslitecoin-line.png";
+import LitecoinLine from "../images/litecoin-line.png";
 import LiteIcon from "../images/litecoin.png";
-import BitIcon from "../images/bitcoinpng";
+import BitIcon from "../images/bitcoin.png";
 import EthIcon from "../images/ethereum.png";
 import cardano from "../images/cardano.png";
-import cardanoLine from "../images/cardano-line.png";
+import cardanoline from "../images/cardano-line.png";
 import receivedIcon from "../images/received_icon.png";
 import BuyIcon from "../images/buy-icon.png";
 
@@ -55,7 +56,7 @@ const BottomSection = () => {
       name: "Cardano",
       shortName: "ADA",
       icon: cardano,
-      line: cardano-line,
+      line: cardanoline,
       change: +0.02,
       price: "4,786",
       transIcon: BuyIcon,

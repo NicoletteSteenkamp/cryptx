@@ -1,5 +1,5 @@
 import './TopSection.css'; 
-import BitcoinIcon from "../imagesbitcoin.png";
+import BitcoinIcon from "../images/bitcoin.png";
 import LitecoinIcon from "../images/litecoin.png";
 import EthereumIcon from "../images/litecoin.png";
 import CardanoIcon from "../images/cardano.png";

@@ -7,14 +7,14 @@ import {
   useLocation,
 } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
+import Header from  "./components/Header";
 import "./App.css";
-import Markets from "./Pages/Markets";
-import PriceChart from "./Pages/PriceChart";
-import Exchanges from "./Pages/Exchanges";
+import Markets from "./pages/Markets";
+import PriceChart from "./pages/PriceChart";
+import Exchanges from "./pages/Exchanges";
 import Footer from "./components/Footer";
-import Login from "./Pages/SignIn";
-import Signup from "./Pages/Register";
+import Login from "./pages/SignIn";
+import Signup from "./pages/Register";
 import { SignedIn, useAuth } from "@clerk/clerk-react"; 
 import styled from "styled-components";
 import Cryptopage from "./components/crypto";
@@ -28,7 +28,7 @@ const Content = styled.div`
 `;
 
 export default function App() {
-  const { isSignedIn } = useAuth(); // This should work fine
+  const { isSignedIn } = useAuth(); 
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -55,7 +55,7 @@ export default function App() {
             <Wrap>
               <Sidebar />
               <Content>
-                <Header /> {/* Header is nested within SignedIn */}
+                <Header /> 
                 <Routes>
                   <Route path="/" element={<Cryptopage />} />
                   <Route path="coin-markets" element={<Markets />} />

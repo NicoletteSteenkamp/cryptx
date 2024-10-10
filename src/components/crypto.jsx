@@ -1,5 +1,5 @@
-import TopofPage from "../Pages/TopofPage";
-import Bottompart from "../Pages/Bottompart";
+import TopofPage from "../pages/TopofPage";
+import Bottompart from "../pages/Bottompart";
 
 const CryptoPage = () => {
   return (
