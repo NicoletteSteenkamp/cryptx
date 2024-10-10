@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axios from 'axios';
-import './BottomSection.css'; 
+import axios from "axios";
+import MarketSection from "./Marketsection";
+import TransactionsSection from "./Transactionsection";
 import EthereunLine from "../images/Ethereum-line.png";
 import BitcoinLine from "../images/Bitcoin-line.png";
 import LitecoinLine from "../images/litecoin-line.png";
-import LiteIcon from "../images/litecoin.png";
-import BitIcon from "../images/bitcoin.png";
-import EthIcon from "../images/ethereum.png";
+import litecoin from "../images/litecoin.png";
+import bitcoin from "../images/bitcoin.png";
+import ethereum from "../images/ethereum.png";
 import cardano from "../images/cardano.png";
 import cardanoline from "../images/cardano-line.png";
 import receivedIcon from "../images/received_icon.png";
 import BuyIcon from "../images/buy-icon.png";
-
-const REFRESH_INTERVAL = 1000 * 60; // 1 minute
+import "./BottomSection.css";
 
 const BottomSection = () => {
   const [coinsArray, setCoinsArray] = useState([
@@ -20,7 +20,7 @@ const BottomSection = () => {
       id: 1,
       name: "Ethereum",
       shortName: "ETH",
-      icon: EthIcon,
+      icon: ethereum,
       line: EthereunLine,
       change: +14.02,
       price: "39,786",
@@ -32,7 +32,7 @@ const BottomSection = () => {
       id: 2,
       name: "Bitcoin",
       shortName: "BIT",
-      icon: BitIcon,
+      icon: bitcoin,
       line: BitcoinLine,
       change: +4.02,
       price: "21,786",
@@ -44,7 +44,7 @@ const BottomSection = () => {
       id: 3,
       name: "Litecoin",
       shortName: "ITC",
-      icon: LiteIcon,
+      icon: litecoin,
       line: LitecoinLine,
       change: -4.02,
       price: "9,786",
@@ -66,93 +66,43 @@ const BottomSection = () => {
     },
   ]);
 
+  // Wrap fetchCoinPrices in useCallback to prevent recreation on each render
   const fetchCoinPrices = useCallback(async () => {
     try {
       const updatedCardsData = await Promise.all(
         coinsArray.map(async (item) => {
           const response = await axios.get(
-            `https://api.coingecko.com/api/v3/simple/price?ids=${item.shortName.toLowerCase()}&vs_currencies=usd&include_percentage_change=true`
+            `https://api.coincap.io/v2/assets/${item.name.toLowerCase()}`
           );
-          const data = response.data[item.shortName.toLowerCase()];
-
-          let num = data.usd >= 1 ? 0 : 2;
+          const data = response.data.data;
+          let num = data.priceUsd >= 1 ? 0 : 2;
 
           return {
             ...item,
-            change: data.usd_change_percentage ? parseFloat(data.usd_change_percentage).toFixed(2) : 0,
+            change: parseFloat(data.changePercent24Hr).toFixed(2),
             price: new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
               maximumFractionDigits: num,
-            }).format(data.usd),
+            }).format(data.priceUsd),
           };
         })
       );
-
       setCoinsArray(updatedCardsData);
     } catch (err) {
-      console.error("Error fetching coin prices:", err);
+      console.log(err);
     }
-  }, [coinsArray]); // Dependency array includes coinsArray
+  }, [coinsArray]); // Add coinsArray as a dependency
 
+  // Run fetchCoinPrices when the component mounts or when coinsArray changes
   useEffect(() => {
-    fetchCoinPrices(); 
-
-    const interval = setInterval(fetchCoinPrices, 1000 * 60); 
-    return () => clearInterval(interval); 
-  }, [fetchCoinPrices]); // Include fetchCoinPrices in dependency array
-
-
-  useEffect(() => {
-    fetchCoinPrices(); 
-    const interval = setInterval(fetchCoinPrices, REFRESH_INTERVAL); 
-    return () => clearInterval(interval); 
-  }, [fetchCoinPrices]); 
+    fetchCoinPrices();
+  }, [fetchCoinPrices]); // Now the effect depends on the memoized fetchCoinPrices
 
   return (
     <div className="container">
-      <div className="wrap">
-        <h2 className="heading">Live Market</h2>
-        {coinsArray.map((item) => (
-          <div className="stats-container" key={item.id}>
-            <div className="icons-sec">
-              <div className="icon-pic">
-                <img src={item.icon} alt={item.name} />
-              </div>
-              <div className="text">
-                <h3>{item.name}</h3>
-                <p>{item.shortName} / USD</p>
-              </div>
-            </div>
-            <div className="change-sec" style={{ color: item.change < 0 ? "orange" : "rgb(45, 225, 45)" }}>
-              <h3>Change</h3>
-              <p>
-                {item.change > 0 && "+"}
-                {item.change}%
-              </p>
-            </div>
-            <div className={`change-sec prices`}>
-              <h3>Price</h3>
-              <h4>{item.price} USD</h4>
-            </div>
-            <img className="image" src={item.line} alt={`${item.name} trend`} />
-          </div>
-        ))}
-      </div>
-      <div className="wrap-right">
-        <h2 className="heading">Transactions</h2>
-        {coinsArray.map((item) => (
-          <div className="right-item" key={item.id}>
-            <div className="history">
-              <h3>{item.time}</h3>
-              <p>Last transaction: {item.TransPrice} USD</p>
-            </div>
-            <div className="icon-pic right-icon">
-              <img src={item.transIcon} alt={`${item.name} transaction`} />
-            </div>
-          </div>
-        ))}
-      </div>
+      <MarketSection coinsArray={coinsArray} />
+      <TransactionsSection coinsArray={coinsArray} />
     </div>
   );
 };
