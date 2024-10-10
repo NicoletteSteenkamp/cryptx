@@ -18,6 +18,7 @@ import Signup from "./pages/Register";
 import { SignedIn, useAuth } from "@clerk/clerk-react"; 
 import styled from "styled-components";
 import Cryptopage from "./components/crypto";
+import Transaction from "./pages/Transaction";
 
 const Wrap = styled.div`
   display: flex;
@@ -26,6 +27,8 @@ const Wrap = styled.div`
 const Content = styled.div`
   flex: 1;
 `;
+
+const NotFound = () => <div>404 - Not Found</div>;
 
 export default function App() {
   const { isSignedIn } = useAuth(); 
@@ -61,8 +64,9 @@ export default function App() {
                   <Route path="coin-markets" element={<Markets />} />
                   <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
                   <Route path="exchanges" element={<Exchanges />} />
+                  <Route path="transactions" element={<Transaction />} />
+                  <Route path="*" element={<NotFound />} /> {/* Handle unknown routes */}
                 </Routes>
-                
               </Content>
             </Wrap>
             <Footer />

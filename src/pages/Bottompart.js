@@ -11,6 +11,7 @@ import cardanoline from "../images/cardano-line.png";
 import receivedIcon from "../images/received_icon.png";
 import BuyIcon from "../images/buy-icon.png";
 import styled from "styled-components";
+import Transaction from "./Transaction";
 
 const Container = styled.section`
   display: flex;
@@ -35,33 +36,6 @@ const StatsContainer = styled.div`
   margin-top: 0.5rem;
   gap: 4rem;
   align-items: center;
-`;
-
-const IconsSec = styled.div`
-  display: flex;
-  gap: 0.65rem;
-  width: 120px;
-
-  .text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  h3 {
-    font-size: 0.9rem;
-  }
-
-  p {
-    font-size: 0.8rem;
-    color: #b1b1b1;
-  }
-
-  h4 {
-    font-size: 0.8rem;
-    color: #b1b1b1;
-    font-weight: 400;
-  }
 `;
 
 const IconPic = styled.div`
@@ -119,10 +93,10 @@ const WrapRight = styled.div`
   flex: 1;
 `;
 
-const RightItem = styled.div`
-  margin-top: 0.5rem;
+const IconsSec = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 0.65rem;
+  width: 120px;
 
   .text {
     display: flex;
@@ -130,30 +104,20 @@ const RightItem = styled.div`
     gap: 0.2rem;
   }
 
-  .history {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    text-align: right;
-
-    p {
-      font-size: 0.8rem;
-      color: #b1b1b1;
-    }
-
-    h3 {
-      font-size: 1rem;
-    }
+  h3 {
+    font-size: 0.9rem;
   }
-`;
 
-const RightIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border: 1px solid #b1b1b1;
-  border-radius: 50%;
+  p {
+    font-size: 0.8rem;
+    color: #b1b1b1;
+  }
+
+  h4 {
+    font-size: 0.8rem;
+    color: #b1b1b1;
+    font-weight: 400;
+  }
 `;
 
 const BottomSection = () => {
@@ -237,69 +201,43 @@ const BottomSection = () => {
   };
 
   useEffect(() => {
-    fetchCoinPrices(); // Fetch initial data on mount
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(fetchCoinPrices, 1000 * 60); // Update every minute
-    return () => clearInterval(interval); // Cleanup on component unmount
-  }, [coinsArray]);
+    const interval = setInterval(fetchCoinPrices, 1000 * 60); 
+    fetchCoinPrices(); // Fetch initially
+    return () => clearInterval(interval); 
+  }, []); 
 
   return (
     <Container>
       <Wrap>
         <Heading>Live Market</Heading>
-        {coinsArray.map((item) => {
-          return (
-            <StatsContainer key={item.id}>
-              <IconsSec>
-                <IconPic>
-                  
-                  <img src={item.icon} />
-                </IconPic>
-                <div className="text">
-                  <h3>{item.name}</h3>
-                  <p>{item.shortName} / USD</p>
-                </div>
-              </IconsSec>
-              <ChangeSec
-                color={item.change < 0 ? "orange" : "rgb(45, 225, 45)"}
-              >
-                <h3>Change</h3>
-                <p>
-                  {item.change > 0 && "+"}
-                  {item.change}%
-                </p>
-              </ChangeSec>
-              <ChangeSec className="prices">
-                <h3>Price</h3>
-                <h4>{item.price} USD</h4>
-              </ChangeSec>
-              <Image src={item.line} />
-            </StatsContainer>
-          );
-        })}
+        {coinsArray.map((item) => (
+          <StatsContainer key={item.id}>
+            <IconsSec>
+              <IconPic>
+                <img src={item.icon} alt={`${item.name} icon`} />
+              </IconPic>
+              <div className="text">
+                <h3>{item.name}</h3>
+                <p>{item.shortName} / USD</p>
+              </div>
+            </IconsSec>
+            <ChangeSec color={item.change < 0 ? "orange" : "rgb(45, 225, 45)"}>
+              <h3>Change</h3>
+              <p>
+                {item.change > 0 && "+"}
+                {item.change}%
+              </p>
+            </ChangeSec>
+            <ChangeSec className="prices">
+              <h3>Price</h3>
+              <h4>{item.price} USD</h4>
+            </ChangeSec>
+            <Image src={item.line} alt={`${item.name} price line`} />
+          </StatsContainer>
+        ))}
       </Wrap>
       <WrapRight>
-        <Heading>Transactions </Heading>
-        {coinsArray.map((item) => {
-          return (
-            <RightItem key={item.id}>
-              <IconsSec>
-                <RightIcon src={item.transIcon} />
-                <div className="text">
-                  <h3>{item.name}</h3>
-                  <h4>{item.transIcon === BuyIcon ? "Buy" : "Received"}</h4>
-                </div>
-              </IconsSec>
-
-              <div className="history text">
-                <h3>${item.TransPrice}</h3>
-                <p>Today, {item.time}</p>
-              </div>
-            </RightItem>
-          );
-        })}
+        <Transaction coinsArray={coinsArray} />
       </WrapRight>
     </Container>
   );

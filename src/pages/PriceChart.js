@@ -94,4 +94,3 @@ const PriceChart = ({ assetId }) => {
 };
 
 export default PriceChart;
-

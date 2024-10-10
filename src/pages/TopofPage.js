@@ -6,15 +6,16 @@ import CardanoIcon from "../images/cardano.png";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import Chart from "./PriceChart";
+import PriceChart from "./PriceChart";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 
 const Container = styled.section`
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 1rem;
-  padding: 0 4rem 0 1rem;
+  padding: 2rem 4rem 0 1rem;
 `;
 
 const LeftWrap = styled.div`
@@ -201,7 +202,7 @@ const Topofpage = () => {
       </LeftWrap>
       <RightWrap>
         <h3>{activeCoin} Prices</h3>
-        <Chart history={coinHistory} coin={activeCoin} />
+        <PriceChart history={coinHistory} assetId="bitcoin"  />
       </RightWrap>
     </Container>
   );
