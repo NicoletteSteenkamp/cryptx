@@ -10,7 +10,6 @@ import cardano from "../images/cardano.png";
 import cardanoline from "../images/cardano-line.png";
 import receivedIcon from "../images/received_icon.png";
 import BuyIcon from "../images/buy-icon.png";
-import "./BottomSection.css";
 import styled from "styled-components";
 
 const Container = styled.section`

@@ -62,9 +62,10 @@ export default function App() {
                   <Route path="price-chart" element={<PriceChart assetId="bitcoin" />} />
                   <Route path="exchanges" element={<Exchanges />} />
                 </Routes>
-                <Footer />
+                
               </Content>
             </Wrap>
+            <Footer />
           </SignedIn>
         }
       />
