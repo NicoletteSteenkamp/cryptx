@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import './BottomSection.css'; // Import the CSS file
-import EthereunLine from "../assets/Ethereum-line.png";
-import BitcoinLine from "../assets/Bitcoin-line.png";
-import LitecoinLine from "../assets/litecoin-line.png";
-import LiteIcon from "../assets/lite-icon.png";
-import BitIcon from "../assets/Bit-icon.png";
-import EthIcon from "../assets/Eth-icon.png";
-import CardIcon from "../assets/cord-icon.png";
-import CardanoLine from "../assets/cardano-line.png";
-import receivedIcon from "../assets/received_icon.png";
-import BuyIcon from "../assets/buy-icon.png";
+import './BottomSection.css'; 
+import EthereunLine from "../images/Ethereum-line.png";
+import BitcoinLine from "../images/Bitcoin-line.png";
+import LitecoinLine from "../imageslitecoin-line.png";
+import LiteIcon from "../images/litecoin.png";
+import BitIcon from "../images/bitcoinpng";
+import EthIcon from "../images/ethereum.png";
+import cardano from "../images/cardano.png";
+import cardanoLine from "../images/cardano-line.png";
+import receivedIcon from "../images/received_icon.png";
+import BuyIcon from "../images/buy-icon.png";
 
 const BottomSection = () => {
   const [coinsArray, setCoinsArray] = useState([
@@ -54,8 +54,8 @@ const BottomSection = () => {
       id: 4,
       name: "Cardano",
       shortName: "ADA",
-      icon: CardIcon,
-      line: CardanoLine,
+      icon: cardano,
+      line: cardano-line,
       change: +0.02,
       price: "4,786",
       transIcon: BuyIcon,
